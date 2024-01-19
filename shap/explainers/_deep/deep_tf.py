@@ -277,6 +277,9 @@ class TFDeep(Explainer):
                 model_output_ranks = np.argsort(model_output_values)
             elif output_rank_order == "max_abs":
                 model_output_ranks = np.argsort(np.abs(model_output_values))
+            elif output_rank_order.isnumeric():
+                model_output_ranks = np.argsort(-model_output_values)
+                model_output_ranks[0] = int(output_rank_order)
             else:
                 assert False, "output_rank_order must be max, min, or max_abs!"
             model_output_ranks = model_output_ranks[:,:ranked_outputs]
